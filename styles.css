@@ -1,0 +1,221 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@600&family=Roboto&display=swap');
+
+:root {
+    --step--2: clamp(0.6944rem, 0.6855rem + 0.0446vw, 0.72rem);
+    --step--1: clamp(0.8331rem, 0.8099rem + 0.1163vw, 0.9rem);
+    --step-0: clamp(1rem, 0.9565rem + 0.2174vw, 1.125rem);
+    --step-1: clamp(1.2rem, 1.1283rem + 0.3587vw, 1.4063rem);
+    --step-2: clamp(1.44rem, 1.3293rem + 0.5533vw, 1.7581rem);
+    --step-3: clamp(1.7281rem, 1.5649rem + 0.8163vw, 2.1975rem);
+    --step-4: clamp(2.0738rem, 1.8396rem + 1.1707vw, 2.7469rem);
+    --step-5: clamp(2.4881rem, 2.1594rem + 1.6435vw, 3.4331rem);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+    font-size: var(--step-0);
+    line-height: 1.4;
+}
+
+h1,
+h2,
+h3,
+dt {
+    font-family: 'Lexend', sans-serif;
+    line-height: 1;
+}
+
+h1 {
+    font-size: var(--step-4);
+}
+
+h2 {
+    font-size: var(--step-2);
+}
+
+h3 {
+    font-size: var(--step-1);
+}
+
+html {
+    font-size: 18px;
+    --gap: 32px;
+}
+
+header {
+    background-color: rgb(49, 47, 50);
+    background: linear-gradient(120deg, rgba(49, 47, 50, 1) 0%, rgba(0, 0, 0, 1) 100%);
+    background-image: url(img/header-background.jpg);
+    background-size: cover;
+    background-position: 50% 50%;
+    padding: 64px;
+    display: flex;
+    justify-content: center;
+}
+
+@media screen and (max-width: 848px) {
+    header {
+        background-image: unset;
+        background: linear-gradient(120deg, rgba(49, 47, 50, 1) 0%, rgba(0, 0, 0, 1) 100%);
+    }
+}
+
+header h1,
+header h3 {
+    color: ffc424;
+}
+
+header>div {
+    max-width: 900px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    column-gap: var(--gap);
+    justify-content: space-between;
+    flex: 1;
+}
+
+header aside img {
+    max-width: clamp(7.5rem, 5.9348rem + 7.8261vw, 12rem);
+    box-shadow: rgb(0, 0, 0) 0px 10px var(--gap) 4px;
+}
+
+header aside img[aria-hidden] {
+    display: none
+}
+
+header .about {
+    border-radius: 8px;
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: var(--gap);
+    display: flex;
+    flex-direction: column;
+    row-gap: var(--gap);
+    color: #fff;
+    flex: 1;
+    min-width: 232px;
+}
+
+@media screen and (max-width: 848px) {
+    header .about {
+        padding: 0;
+        background-color: transparent;
+    }
+
+    header h2 {
+        font-family: 'Roboto';
+        font-weight: normal;
+        font-style: italic;
+        color: #b1b1b1;
+        font-size: var(--step-1);
+    }
+}
+
+.book {
+    padding: var(--gap);
+    margin: 0 auto;
+    max-width: 800px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    column-gap: var(--gap);
+}
+
+.book .about {
+    display: flex;
+    flex-direction: column;
+    row-gap: var(--gap);
+}
+
+.book .purchase {
+    position: sticky;
+    top: var(--gap);
+}
+
+.book .purchase img {
+    max-width: clamp(6.5rem, 6.5rem + 7vw, 11rem);
+}
+
+@media screen and (max-width: 750px) {
+    .book .purchase {
+        display: none;
+    }
+}
+
+.book .toc {
+    max-height: 0;
+    transition: all 2.3s;
+    overflow-y: hidden;
+}
+
+.book .toc.show {
+    max-height: 9999999px;
+}
+
+.book .toc ul {
+    list-style: circle;
+}
+
+.quotes {
+    padding: var(--gap);
+    background-image: url(img/quotes-background.jpg);
+    background-size: cover;
+    background-position: 50% 50%;
+    border-top: #d3d3d3 1px solid;
+}
+
+footer {
+    background-image: url(img/footer-background.jpg);
+    background-size: cover;
+    background-position: 50% 50%;
+    display: flex;
+    flex-direction: column;
+    row-gap: 64px;
+    align-items: center;
+    padding: 128px;
+}
+
+footer section {
+    max-width: 1000px;
+    display: flex;
+    align-items: flex-start;
+    column-gap: var(--gap);
+}
+
+footer section>img {
+    margin-top: var(--gap)
+}
+
+footer section .content {
+    border-radius: 8px;
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: var(--gap);
+    display: flex;
+    flex-direction: column;
+    row-gap: var(--gap);
+    color: #fff;
+}
+
+footer section .content a {
+    color: #fff;
+}
+
+footer .author {
+    flex-direction: row;
+}
+
+footer .author img {
+    max-width: 200px;
+    outline: solid 3px #ffc51f;
+    border-radius: 50%;
+}
+
+footer .publisher {
+    flex-direction: row-reverse;
+}
+
+footer .publisher img {
+    max-width: 300px;
+}

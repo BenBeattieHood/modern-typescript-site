@@ -1,0 +1,1162 @@
+<html>
+
+<head>
+    <title>Modern TypeScript</title>
+    <!-- <link rel="stylesheet" href="styles.css" /> -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Lexend:wght@600&family=Roboto&family=STIX+Two+Text&display=swap');
+
+        :root {
+            --step--2: clamp(0.6944rem, 0.6855rem + 0.0446vw, 0.72rem);
+            --step--1: clamp(0.8331rem, 0.8099rem + 0.1163vw, 0.9rem);
+            --step-0: clamp(1rem, 0.9565rem + 0.2174vw, 1.125rem);
+            --step-1: clamp(1.2rem, 1.1283rem + 0.3587vw, 1.4063rem);
+            --step-2: clamp(1.44rem, 1.3293rem + 0.5533vw, 1.7581rem);
+            --step-3: clamp(1.7281rem, 1.5649rem + 0.8163vw, 2.1975rem);
+            --step-4: clamp(2.0738rem, 1.8396rem + 1.1707vw, 2.7469rem);
+            --step-5: clamp(2.4881rem, 2.1594rem + 1.6435vw, 3.4331rem);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: inherit;
+            font-size: inherit;
+            line-height: inherit;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        dt {
+            font-family: 'Lexend', sans-serif;
+            line-height: 1;
+        }
+
+        h1 {
+            font-size: var(--step-4);
+        }
+
+        h2,
+        dt {
+            font-size: var(--step-2);
+        }
+
+        h3 {
+            font-size: var(--step-1);
+        }
+
+        h4 {
+            font-size: var(--step-0);
+        }
+
+        html {
+            font-size: 18px;
+            --gap: 32px;
+            font-family: 'Roboto', sans-serif;
+            font-size: var(--step-0);
+            line-height: 1.4;
+        }
+
+        header {
+            background-color: rgb(49, 47, 50);
+            background: linear-gradient(120deg, rgba(49, 47, 50, 1) 0%, rgba(0, 0, 0, 1) 100%);
+            background-image: url(img/header-background.jpg);
+            background-size: cover;
+            background-position: 50% 50%;
+            padding: 64px;
+            display: flex;
+            justify-content: center;
+        }
+
+        @media screen and (max-width: 848px) {
+            header {
+                background-image: unset;
+                background: linear-gradient(120deg, rgba(49, 47, 50, 1) 0%, rgba(0, 0, 0, 1) 100%);
+            }
+        }
+
+        header h1,
+        header h3 {
+            color: ffc424;
+        }
+
+        header>div {
+            max-width: 900px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            column-gap: var(--gap);
+            justify-content: space-between;
+            flex: 1;
+        }
+
+        .book3d {
+            position: relative;
+            border: 0;
+            cursor: pointer;
+            background: #fefefe;
+            transform: translate3d(0, 0, 0);
+            display: block;
+            position: relative;
+            list-style: none;
+            perspective-origin: 0 50% 0;
+            perspective: 800px;
+            max-width: clamp(7.5rem, 5.9348rem + 7.8261vw, 12rem);
+            box-shadow: rgb(0, 0, 0) 0px 10px var(--gap) 4px;
+        }
+
+        .book3d img {
+            transform-origin: 0 50% 0;
+            transform-style: preserve-3d;
+            transition: all .5s cubic-bezier(0.25, 1, .25, 1);
+            background: #333 !important;
+            transform: rotateY(0deg) translateZ(0px);
+        }
+
+        .book3d:hover img {
+            transform: rotateY(-20deg);
+        }
+
+        .book3d::after {
+            content: 'Explore Inside';
+            position: absolute;
+            bottom: -24px;
+            right: -43px;
+            background-image: url(img/icon-view-inside.svg);
+            color: white;
+            background-position-x: right;
+            background-position-y: center;
+            display: block;
+            background-repeat: no-repeat;
+            padding-right: 53px;
+            line-height: 1em;
+            padding-top: 20px;
+            font-family: 'Lexend', sans-serif;
+            opacity: 0.6;
+            transition: opacity 0.3s;
+        }
+
+        .book3d:hover::after {
+            opacity: 1;
+            filter: drop-shadow(0px 0px 10px #fff);
+        }
+
+        header aside img {
+            max-width: clamp(7.5rem, 5.9348rem + 7.8261vw, 12rem);
+            box-shadow: rgb(0, 0, 0) 0px 10px var(--gap) 4px;
+        }
+
+        header aside img[aria-hidden] {
+            visibility: hidden;
+        }
+
+        header .about {
+            border-radius: 8px;
+            background-color: rgba(0, 0, 0, 0.3);
+            padding: var(--gap);
+            display: flex;
+            flex-direction: column;
+            row-gap: var(--gap);
+            color: #fff;
+            flex: 1;
+            min-width: 232px;
+        }
+
+        @media screen and (max-width: 848px) {
+            header .about {
+                padding: 0;
+                background-color: transparent;
+            }
+
+            header h2 {
+                font-family: 'Roboto';
+                font-weight: normal;
+                font-style: italic;
+                color: #b1b1b1;
+                font-size: var(--step-1);
+            }
+        }
+
+        .intro p {
+            padding-top: 1em;
+        }
+
+        .book {
+            padding: var(--gap);
+            margin: 0 auto;
+            max-width: 800px;
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            column-gap: var(--gap);
+        }
+
+        .book .about {
+            display: flex;
+            flex-direction: column;
+            row-gap: var(--gap);
+        }
+
+        .book .purchase {
+            position: sticky;
+            top: var(--gap);
+        }
+
+        .book .purchase img {
+            max-width: clamp(6.5rem, 6.5rem + 7vw, 11rem);
+        }
+
+        @media screen and (max-width: 750px) {
+            .book .purchase {
+                display: none;
+            }
+        }
+
+        .book .toc {
+            display: none;
+            padding-top: 24px;
+            color: #131112;
+        }
+
+        .book .toc::before {
+            margin-top: -24px;
+            content: '';
+            background: url(img/tile-paper.jpg) repeat;
+            display: block;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            border-top: solid 1px #918a7e;
+            z-index: -1;
+        }
+
+        .book .toc.show {
+            display: block;
+        }
+
+        .book .toc dd {
+            padding-bottom: 64px;
+        }
+
+        .book .toc dd:last-child {
+            padding-bottom: 0;
+        }
+
+        .book .toc dt .chapter-number {
+            position: absolute;
+            transform: translateX(-66%);
+            font-size: 14em;
+            line-height: 0.7em;
+            padding-right: 20px;
+            opacity: 0.05;
+        }
+
+        .book .toc ul {
+            padding-top: 4px;
+            padding-left: 2px;
+            display: flex;
+            flex-wrap: wrap;
+            row-gap: 4px;
+            column-gap: 4px;
+        }
+
+        .book .toc li {
+            display: flex;
+            align-items: center;
+            border-radius: 99px;
+            background-color: #e7e7e7;
+            padding: 2px 9px 2px 2px;
+            font-size: var(--step--1);
+        }
+
+        .book .toc li::before {
+            content: url(img/icon-chapter.svg);
+            padding-right: 4px;
+            display: inline-block;
+            opacity: 0.7;
+        }
+
+        .book .toc .sample {
+            position: relative;
+            font-size: var(--step--1);
+            max-height: 17em;
+            overflow-y: hidden;
+            transition: all 1s;
+        }
+
+        .book .toc .sample.show {
+            max-height: 80em;
+        }
+
+        .book .toc .sample .show-hide-button {
+            position: absolute;
+            left: 50%;
+            top: 69%;
+            transform: translate(-50%, -50%);
+            border-radius: 99px;
+            border: solid 3px white;
+            background-color: rgba(255, 255, 255, 1);
+            box-shadow: #fff 0px 0px var(--gap) 4px;
+            margin-top: 1.5em;
+            padding: 8px 16px;
+            cursor: pointer;
+            font-weight: bold;
+            color: #241e20;
+            z-index: 2;
+            transition: all 0.3s;
+        }
+
+        .book .toc .sample .show-hide-button:hover,
+        .book .toc .sample .show-hide-button:focus {
+            background-color: #FFC425;
+            box-shadow: #FFC425 0px 10px var(--gap) 4px;
+        }
+
+        .book .toc .sample .show-hide-button:before {
+            content: 'View More';
+        }
+
+        .book .toc .sample.show .show-hide-button {
+            right: 3px;
+            left: auto;
+            top: 0;
+            transform: none;
+            margin-top: 1em;
+        }
+
+        .book .toc .sample.show .show-hide-button:before {
+            content: 'hide'
+        }
+
+        .book .toc .sample.show .show-hide-button:hover,
+        .book .toc .sample.show .show-hide-button:focus {
+            background-color: #FFC425;
+            box-shadow: #FFC425 0px 0px 10px 0px;
+        }
+
+        .book .toc h3 {
+            padding-top: 1em;
+        }
+
+        .book .toc .sample:before {
+            content: "";
+            position: absolute;
+            z-index: 1;
+            bottom: 0;
+            left: 0;
+            pointer-events: none;
+            background-image: linear-gradient(to bottom, rgba(255, 255, 251, 0), rgba(255, 255, 251, 1) 90%);
+            width: 100%;
+            height: 4em;
+            border-bottom: 1em solid #FFFFFB;
+        }
+
+        .book .toc .sample.show:after {
+            content: 'End of Chapter Sample Content';
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translate(-50%, 25%);
+            border-radius: 99px;
+            border: solid 3px white;
+            background-color: rgba(255, 255, 255, 1);
+            box-shadow: #fff 0px 0px var(--gap) 4px;
+            padding: 8px 16px;
+            font-weight: bold;
+            color: #241e20;
+            z-index: 2;
+            opacity: 0.3;
+        }
+
+        .book .toc p {
+            padding-top: 1em;
+            font-family: 'STIX Two Text', serif;
+        }
+
+        .book .toc p:has(img) {
+            text-align: center;
+        }
+
+        .book .toc pre {
+            background-color: #eee;
+            border-radius: 4px;
+            padding: 12px 16px;
+            font-family: monospace;
+            font-size: var(--step--2);
+            margin-top: 1em;
+        }
+
+        .book .toc h4 {
+            padding-top: 1em;
+            opacity: 0.5;
+        }
+
+        .quotes {
+            padding: var(--gap);
+            background-image: url(img/quotes-background.jpg);
+            background-size: cover;
+            background-position: 50% 50%;
+            border-top: #d3d3d3 1px solid;
+        }
+
+        .quotes section {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: masonry;
+        }
+
+        .quote {}
+
+        footer {
+            background-image: url(img/footer-background.jpg);
+            background-size: cover;
+            background-position: 50% 50%;
+            display: flex;
+            flex-direction: column;
+            row-gap: 64px;
+            align-items: center;
+            padding: 128px;
+        }
+
+        footer section {
+            max-width: 1000px;
+            display: flex;
+            align-items: flex-start;
+            column-gap: var(--gap);
+        }
+
+        footer section>img {
+            margin-top: var(--gap)
+        }
+
+        footer section .content {
+            border-radius: 8px;
+            background-color: rgba(0, 0, 0, 0.3);
+            padding: var(--gap);
+            display: flex;
+            flex-direction: column;
+            row-gap: var(--gap);
+            color: #fff;
+        }
+
+        footer section .content a {
+            color: #fff;
+        }
+
+        footer .author {
+            flex-direction: row;
+        }
+
+        footer .author img {
+            max-width: 200px;
+            outline: solid 3px #ffc51f;
+            border-radius: 50%;
+        }
+
+        footer .publisher {
+            flex-direction: row-reverse;
+        }
+
+        footer .publisher img {
+            max-width: 300px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div>
+            <aside class="preview" id="preview">
+                <button class="book3d" onclick="showToc()">
+                    <img src="img/book-front.jpg" alt="Modern TypeScript" />
+                </button>
+            </aside>
+            <section class="about">
+                <h1>
+                    Modern TypeScript
+                </h1>
+                <h2>
+                    A Practical Guide to Accelerate Your Development Velocity
+                </h2>
+                <h3 class="author">
+                    Ben Beattie-Hood
+                </h3>
+            </section>
+        </div>
+    </header>
+    <main class="book">
+        <section class="about">
+            <div class="intro">
+                <p>
+                    Deep-dive into the world of TypeScript, a popular superset of the JavaScript language that enhances
+                    the
+                    development experience with static typing. This definitive guide covers every aspect of TypeScript
+                    in an
+                    approachable, concise, and easy-to-understand style, and remains the ultimate resource for mastering
+                    TypeScript for all readers from newcomers to experienced developers.
+                </p>
+                <p>
+                    With a comprehensive coverage of TypeScript's features, you'll gain in-depth knowledge of concepts
+                    like
+                    structural typing, optionality and union types, computed and recursive types, and much more. Each
+                    chapter is packed with practical, real-world examples and insider tips, ensuring you understand the
+                    most
+                    important features and learn how to avoid common pitfalls.
+                </p>
+                <p>
+                    Whether you're building small projects or large-scale applications, this book equips you with the
+                    skills
+                    and confidence to write cleaner, scalable, more maintainable code. Don't miss this opportunity to
+                    elevate your TypeScript proficiency and stay at the forefront of modern development.
+                </p>
+            </div>
+            <div class="toc" id="toc">
+                <dl>
+                    <dt><span class="chapter-number" aria-hidden>1</span>Chapter 1: Introduction</dt>
+                    <dd>
+                        <h3>Contents</h3>
+                        <ul>
+                            <li>History</li>
+                            <li>The Problem</li>
+                            <li>Scalable Velocity</li>
+                        </ul>
+                        <div class="sample">
+                            <h3>Chapter Sample</h3>
+
+                            <button class="show-hide-button" data-target=":parent"></button>
+                            <p>To truly understand TypeScript, it is important to understand some of the background of
+                                the
+                                language. We want to get onto the fun stuff with types, but this background is
+                                necessary, so
+                                I'll keep it short and to the point. Because when looking into TypeScript, you'll
+                                undoubtedly
+                                come across references to both JavaScript and ECMAScript and its versions - so how do
+                                all
+                                these
+                                fit together? So let's rewind the clock to get a quick overview. </p>
+                            <p>The first version of JavaScript was released in 1995, and it quickly gained popularity
+                                among
+                                web
+                                developers. In 1996, Microsoft introduced their own version of JavaScript called
+                                JScript.
+                                And so
+                                in 1997, JavaScript was submitted to the European Computer Manufacturers Association
+                                (ECMA)
+                                in
+                                an effort to standardize. This resulting standard was called ECMAScript, and was
+                                released in
+                                1999.</p>
+                            <p>So the important thing to note here is that ECMAScript is a standard, not a language.
+                                That
+                                means
+                                that it defines how features like objects, functions, variables, closures, operators,
+                                error
+                                handling and etcetera all work and interoperate, but it doesn't define the actual
+                                implementation
+                                for them. JavaScript then became the first implementation of ECMAScript, defining the
+                                syntax
+                                and
+                                being implemented in runtimes in early browsers.</p>
+                            <p>So ECMAScript v1 (also known as ES1) was released in 1997, and was implemented by
+                                concurrent
+                                versions of JavaScript. And, like any new specification, features missing from the
+                                ECMAScript
+                                specification quickly began to be found, and so ECMAScript v2 (ES2) was released shortly
+                                after
+                                in 1998, and ECMAScript v3 (ES3) in 1999.</p>
+                        </div>
+                    </dd>
+                    <dt><span class="chapter-number" aria-hidden>2</span>Chapter 2: Getting Started with the Developer
+                        Experience</dt>
+                    <dd>
+                        <h3>Contents</h3>
+                        <ul>
+                            <li>Getting Started</li>
+                            <li>Environment and IDE</li>
+                            <li>Debugging TypeScript</li>
+                        </ul>
+                        <div class="sample">
+                            <h3>Chapter Sample</h3>
+
+                            <button class="show-hide-button" data-target=":parent"></button>
+                            <p>Although you can build and run TypeScript files directly via the CLI, TypeScript is
+                                honestly
+                                better used as part of a larger toolchain - leveraging best-of-breed packages from the
+                                JavaScript ecosystem to build large scalable websites, back ends, or native apps. Most
+                                books
+                                will suggest you clone a custom repo created by the author, pre-set for these
+                                configurations;
+                                but to be frank, that's not how I'd expect you to use TypeScript in industry. Instead,
+                                let's
+                                now
+                                set up TypeScript as part of a toolchain in the best possible way that will be easy to
+                                keep
+                                up
+                                to date.</p>
+                            <p>Sounds good? But with the JavaScript ecosystem moving so quickly, how are we to keep
+                                continually
+                                up-to-date on all the 'best practice' configurations and NPM packages for our particular
+                                use
+                                cases?</p>
+                            <p>Thankfully, the ecosystem has matured to a state where this can be done for you by a
+                                couple
+                                of
+                                useful build and management tools - you no longer need retain a full-time job learning
+                                about
+                                build caching, module bundle splitting, and the like - these can take care of these
+                                tasks
+                                for
+                                you. </p>
+                            <p>The first of these is NX. Let's try it out now.</p>
+                        </div>
+                    </dd>
+                    <dt><span class="chapter-number" aria-hidden>3</span>Chapter 3: TypeScript Basics</dt>
+                    <dd>
+                        <h3>Contents</h3>
+                        <ul>
+                            <li>Structural Typing</li>
+                            <li>Optionality</li>
+                            <li>Array and Object Destructuring</li>
+                            <li>Spread, and Rest</li>
+                            <li>Async</li>
+                            <li>Generators</li>
+                            <li>Inferred Types</li>
+                            <li>Type Widening and Narrowing</li>
+                            <li>Auto-Narrowing</li>
+                            <li>Assertions</li>
+                            <li>Parameterised Values</li>
+                            <li>Signatures</li>
+                        </ul>
+                        <div class="sample">
+                            <h3>Chapter Sample</h3>
+
+                            <button class="show-hide-button" data-target=":parent"></button>
+                            <p>Dynamic languages such as JavaScript use a concept called 'structural typing'. This is
+                                more
+                                commonly called 'duck typing'. Here's the usual obtuse and confusing picture people will
+                                often
+                                point you towards when you ask 'why is it called duck typing?':</p>
+                            <p><img src="img/figure5.png" /></p>
+                            <p>Not very helpful, I agree. But the preceding image actually looks like a duck and a
+                                rabbit
+                                (depending on what you're looking for) - so the point here is that it's somewhat both
+                                things
+                                at
+                                the same time.</p>
+                            <p>What the duck-or-rabbit analogy, or 'duck typing' nickname, is getting at is that the
+                                <b>type</b>
+                                or the <b>class</b> of an object is less important than the <b>methods it defines</b>.
+                            </p>
+                            <p>I find an easier way to visualize it is like this:</p>
+                            <p><img src="img/figure6.png" /></p>
+                            <p>In the preceding image, whatever is round can fit into the hole. It doesn't matter if
+                                it's a
+                                ball
+                                of string, a cylindrical block, or a golf ball - if it fits the 'contract' delineated by
+                                the
+                                round hole, it can successfully fit in the round hole:</p>
+                            <p><img src="img/figure7.png" /></p>
+                            <p>So that's the way you can think of structural types: structural types define a minimum
+                                shape
+                                (or
+                                structure) of a value. And it doesn't matter what the value is, what it inherits from,
+                                or
+                                anything else really - if it fits the required minimum contract, it's accepted. And
+                                while
+                                this
+                                may seem overly simplistic, in practice it turns out to be much more powerful, and
+                                scalable,
+                                than alternative approaches.</p>
+                            <p>This power can take some getting used to, if you come from an object-oriented programming
+                                background, and are more familiar with using inheritance and polymorphism. So let's
+                                illustrate
+                                the power of this with a different example, this time with code. Take the following
+                                types:
+                            </p>
+                        </div>
+                    </dd>
+                    <dt><span class="chapter-number" aria-hidden>4</span>Chapter 4: Classes</dt>
+                    <dd>
+                        <h3>Contents</h3>
+                        <ul>
+                            <li>Constructors</li>
+                            <li>Fields</li>
+                            <li>Getters and Setters</li>
+                            <li>Methods</li>
+                            <li>Inheritance</li>
+                            <li>Access Modifiers</li>
+                            <li>Common Gotchas</li>
+                        </ul>
+                        <div class="sample">
+                            <h3>Chapter Sample</h3>
+
+                            <button class="show-hide-button" data-target=":parent"></button>
+                            <p>In this chapter, we will explore how to add TypeScript type-safety to the central
+                                building
+                                block
+                                of object-oriented programming in JavaScript, - namely classes.</p>
+                            <p>We'll begin by learning how to create classes in JavaScript and TypeScript, with
+                                type-safe
+                                constructors, access modifiers, fields, getters/setters, methods; and we'll explore
+                                type-safe
+                                inheritance and interface implementation, and instance and static modifiers.</p>
+                            <p>But, while classes offer powerful abstractions for structuring code, it's essential to
+                                understand
+                                their limitations. And so the remainder of this chapter will discuss the important
+                                difference
+                                between classes and types in TypeScript and how using classes as types may lead to
+                                unexpected
+                                behavior. Additionally, we'll explore the concept of scope bleed, a common issue
+                                associated
+                                with
+                                classes, and review how these objects fit (or not) in a truly structurally typed
+                                context.
+                            </p>
+                            <p>By the end of this chapter, you'll have a solid understanding of classes in TypeScript
+                                and
+                                how to
+                                use them wisely to create robust and scalable applications. Embracing classes alongside
+                                functional programming techniques understandingly will empower you to make well-informed
+                                decisions about how best to write code that is performant as well as maintainable and
+                                easily
+                                testable.</p>
+                            <p>So let's dive in and explore the world of classes in TypeScript!</p>
+                            <p>To create a class in ECMAScript or JavaScript, you simply use the class keyword, and then
+                                also
+                                give it a constructor:</p>
+                            <pre><code>class MyClass {
+    constructor() {
+        // ...
+    }
+}</code></pre>
+                        </div>
+                    </dd>
+                    <dt><span class="chapter-number" aria-hidden>5</span>Chapter 5: Computed Types</dt>
+                    <dd>
+                        <h3>Contents</h3>
+                        <ul>
+                            <li>Type Aliases</li>
+                            <li>Union Types</li>
+                            <li>Intersection Types</li>
+                            <li>Generics</li>
+                            <li>Type Parameters</li>
+                            <li>Constraints</li>
+                            <li>Conditionals</li>
+                            <li>Inference</li>
+                            <li>Distributive and Non-Distributive Types</li>
+                            <li>Recursive Types</li>
+                            <li>Mapped Types</li>
+                            <li>Template Literals</li>
+                        </ul>
+                        <div class="sample">
+                            <h3>Chapter Sample</h3>
+
+                            <button class="show-hide-button" data-target=":parent"></button>
+                            All the shapes we've discussed so far - booleans, strings, interfaces, the in-memory
+                            structural
+                            contract computed from a class, dates, - all of these are types. As discussed, a 'type' is
+                            what
+                            we
+                            call the minimum contract or shape of a value. And in TypeScript, because of the
+                            runtime-typed
+                            approach of ECMAScript & JavaScript, we have some additional features to types that make
+                            them
+                            even
+                            more powerful than most other statically-typed languages. We'll explore these in this
+                            section on
+                            computed types.
+
+                            These computed types are made possible by a powerful feature called type aliases. We create
+                            type
+                            aliases using the type keyword, like this:
+
+                            <pre><code>interface Person {
+    name: string
+    address: {
+        street: string
+        postcode: string
+    }
+}
+
+
+// You can assign a type name to an in-built type...
+type Email = string;
+type URL = string;
+
+
+// ...assign a type name to another type...
+type Friend = Person;
+
+
+// ...and even reuse a piece of another type...
+type Address = Person['address'];
+ &#x276F;    type Address = {
+          street: string;
+          postcode: string;
+      }</code></pre>
+                        </div>
+                    </dd>
+                    <dt><span class="chapter-number" aria-hidden>6</span>Chapter 6: Advanced Usage</dt>
+                    <dd>
+                        <h3>Contents</h3>
+                        <ul>
+                            <li>Expect and IsEqual</li>
+                            <li>Compute</li>
+                            <li>JsonOf</li>
+                            <li>Flatten</li>
+                            <li>UrlParameters</li>
+                            <li>UrlParameters with Optional Params</li>
+                            <li>Further Reading</li>
+                        </ul>
+                        <div class="sample">
+                            <h3>Chapter Sample</h3>
+
+                            <button class="show-hide-button" data-target=":parent"></button>
+                            <p>By this chapter, you will have covered now all the types needed to build truly amazing
+                                software.
+                                In this chapter, we will use the types you've learned and combine them to solve advanced
+                                use-cases, as a form of master-class in TypeScript. For each type I will present, we
+                                will
+                                review
+                                the needs of the type, consider what types we have in our toolbelt that can address
+                                these
+                                needs,
+                                and then combine and build our advanced types step-by-step from the ground up together,
+                                so
+                                you
+                                can see how they're built, and how to make the choices necessary when practicing
+                                TypeScript
+                                at
+                                an advanced proficiency. </p>
+                            <p>We will start with the simpler of these advanced type challenges, and use these to create
+                                types
+                                that in turn can be used to validate stages in the latter advanced types. And, in
+                                finishing,
+                                I'll also list some places for further exploration of advanced types that can help you
+                                continue
+                                your learning journey and connect you to communities that can help you as you progress.
+                            </p>
+                            <h4>Expect and IsEqual</h4>
+
+                            <p class="sample-breakdown">
+                                To create this type, we will use:
+                            </p>
+
+                            <ul>
+                                <li>Generics</li>
+                                <li>Union types</li>
+                                <li>Pattern matching</li>
+                                <li>Deferred types</li>
+                            </ul>
+
+                            <p>If you've written runtime tests before, you'll be familiar with assertion libraries.
+                                MochaJS
+                                uses
+                                Chai, others such as Jest and Playwright use built-in assertion libraries. These provide
+                                the
+                                equals function you can use to assert that a value matches your expectations. So, as
+                                we'll
+                                be
+                                building the types in this section from ground-up, let's start by making our own
+                                compile-time
+                                assertion library, to make it faster to test our types!</p>
+
+                            <p>What we want is a type we can use like this:</p>
+
+                            <pre><code>type OurType&lt;U&gt; = {
+    // Fancy TypeScript here to (eg.) convert a union into an array
+}
+
+
+type IntendedResult = [1, 2, 3];
+
+
+type Result = IsEqual&lt;OurType&lt;1 | 2 | 3&gt;, IntendedResult&gt; &#x2705;
+type Result = IsEqual&lt;number, IntendedResult&gt; &#x274C;</code></pre>
+
+                            <p>Unfortunately, the most straightforward conditional here will not work:</p>
+
+                            <pre><code>type IsEqual&lt;A, B extends A&gt; = A;
+
+
+// It works!
+type Result = IsEqual&lt;1, 1&gt;; &#x2705;
+
+
+// It works!
+type Result = IsEqual&lt;1 | 2 | 3, "Invalid value"&gt;; &#x274C;
+
+
+// It doesn't work &#x1F622;
+type Result = IsEqual&lt;1 | 2 | 3, 1&gt;; &#x2705;</code></pre>
+
+                            <p>The problem is that in that last type, we want IsEqual to assert that the first and
+                                second
+                                arguments are equal types, not just that B is compatible with A. To solve this, break it
+                                into
+                                two parts - equality, and then assertion.</p>
+
+                            <p>The equality part is tricky. We can't use a simple conditional like the below because
+                                that'll
+                                do
+                                the same thing - only compare compatibility:</p>
+
+                            <pre><code>type IsEqual&lt;A, B&gt; =
+    A extends B
+        ? true
+        : false;
+
+
+type Result = IsEqual&lt;1 | 2 | 3, 1&gt;;
+    &#x276F;    type Result = true; &#x1F622;</code></pre>
+
+                            <p>We're going to need to go a bit deeper here. To solve this, we're going to use a feature
+                                of
+                                how
+                                conditional operators are implemented internally in TypeScript (this is the Advanced
+                                Usage
+                                chapter, alright?): Conditional types allow you to compare extends against generic
+                                functions
+                                and
+                                types; but to allow this they would need to be able to compare the type parameters of
+                                the
+                                generics too, and these generic parameters are unknown so cannot be compared. Instead,
+                                conditional operators internally defer the match and require the generic parameters and
+                                related
+                                types of both branches match each other directly. And this direct match is what we want
+                                to
+                                leverage for our IsEqual type. The result is this:</p>
+                        </div>
+                    </dd>
+                    <dt><span class="chapter-number" aria-hidden>7</span>Chapter 7: Performance</dt>
+                    <dd>
+                        <h3>Contents</h3>
+                        <ul>
+                            <li>Recommendations</li>
+                            <li>Gotchas</li>
+                            <li>Partitioning</li>
+                            <li>Caching</li>
+                            <li>Type Performance Tracing</li>
+                            <li>Debugging Type Performance</li>
+                        </ul>
+                        <div class="sample">
+                            <h3>Chapter Sample</h3>
+
+                            <button class="show-hide-button" data-target=":parent"></button>
+                            <p>We have mastered the language, now we must master the tool. As helpful as TypeScript is,
+                                it
+                                also
+                                represents a step between writing your code and running it in production. Large or
+                                complex
+                                codebases with numerous dependencies and intricate control flow can take some time to
+                                analyze,
+                                and make this step slow.</p>
+                            <p>Delays between writing code and running it are worth reducing. Aside from having small
+                                cost
+                                implications of dev time and CI/CD running expenses, there is a larger cost that is
+                                often
+                                overlooked - the human issue. </p>
+                            <p>As humans, we love the creative process. Psychologically our desire to be creative,
+                                productive
+                                individuals means we bias towards the things we find most success in, and err away from
+                                activity
+                                we experience friction from. Unfortunately this means that, if a build process is slow,
+                                we
+                                subconsciously avoid doing it. But this is a problem, because quality only occurs from
+                                feedback.</p>
+                            <p>This section is therefore dedicated to how to optimize the performance of your TypeScript
+                                configuration. optimization of inline types. We will cover how to utilize caching to
+                                store
+                                and
+                                reuse previously computed types; ways to increase caching and reduce computationally
+                                expensive
+                                inferred types and intersection types; and code partitioning strategies to permit
+                                incremental
+                                build. Lastly you will discover how to debug and isolate compilation performance issues
+                                in
+                                CPU
+                                and memory using some built-in and community tools for TypeScript.</p>
+                            <h4>Reducing Inline Types</h4>
+                            <p>The first step in reducing any complex computation (such as, but not limited to, static
+                                type
+                                analysis), is to not do it. Caching allows us to store and reuse previously computed
+                                types,
+                                and
+                                therefore is our first point of call in improving TypeScript performance.</p>
+                            <p>Take the following code for example:</p>
+                        </div>
+                    </dd>
+                    <dt><span class="chapter-number" aria-hidden>8</span>Chapter 8: Build</dt>
+                    <dd>
+                        <h3>Contents</h3>
+                        <ul>
+                            <li>Compiler Options</li>
+                            <li>Recommended tsconfig.json Settings</li>
+                            <li>Project Structure and Build Output</li>
+                            <li>Linting</li>
+                            <li>JSX/TSX</li>
+                            <li>Module Types Explained</li>
+                            <li>Exports and Imports</li>
+                        </ul>
+                        <div class="sample">
+                            <h3>Chapter Sample</h3>
+
+                            <button class="show-hide-button" data-target=":parent"></button>
+                            <p>In this chapter, we will cover the remaining aspects of the build process. TypeScript
+                                project
+                                configuration is essential to this process, and the heart of this configuration lies in
+                                the
+                                tsconfig.json file, located in the root of your project folder. We'll begin with an
+                                overview
+                                of
+                                the main options available in this file. Understanding these options is crucial to
+                                successfully
+                                harness the full potential of the TypeScript compiler.</p>
+                            <p>We will then cover what I would recommend you use as a sensible default for your
+                                tsconfig.json
+                                settings. Instead of overwhelming you with an exhaustive list of every option available,
+                                I'll
+                                highlight just the most important ones that will enhance your projects' code quality,
+                                maintainability, and compatibility.</p>
+                            <p>After mastering the TypeScript compiler options, we explore additional tooling that can
+                                also
+                                help
+                                prevent errors available via linting. We will explore ESLint and its TypeScript ESLint
+                                supplement, and again review what are a good go-to set of rules to leverage among the
+                                many
+                                available. By using the tsconfig and eslint configurations in this chapter, you will
+                                have a
+                                robust tooling setup to catch the majority of common programming mistakes and improve
+                                code
+                                quality.</p>
+                            <p>We will also look at another aspect of TypeScript compilation, which is support for the
+                                JSX
+                                format. You will see how JSX is just a syntactic sugar on top of normal JavaScript
+                                function
+                                calls, and therefore how the type-safety techniques you have learnt in this book can be
+                                applied
+                                to JSX code also.</p>
+                            <p>Finally, we will explore an essential aspect of the build and deployment process, -
+                                modules.
+                                Understanding the different module formats, and how TypeScript resolves modules, is
+                                crucial
+                                for
+                                making informed choices and managing code organization, dependencies, and
+                                interoperability
+                                when
+                                performing post-compilation steps like bundling and chunking. With this knowledge,
+                                you'll be
+                                able to structure your projects efficiently and take full advantage of TypeScript's
+                                module
+                                system.</p>
+                            <h4>Recommended tsconfig.json Settings</h4>
+                            <p>Rather than go through all the settings available, which are easy to find on the
+                                TypeScript
+                                official website, we will now go through those compiler options I recommend you use.</p>
+                            <p>The following ideal config we will discuss in detail below, and then we will cover some
+                                of the additional linting options you can also add on top of this:</p>
+                            <pre><code>{
+    "compilerOptions": {
+        // Targeting Modern Browsers:
+        "module": "ESNext",
+        "target": "ESNext",
+        "lib": [ "esnext" ],
+
+        // Prevent Optional Errors:
+        "noEmitOnError": true,
+        "strict": true,
+        "strictNullChecks": true,
+        "allowUnreachableCode": false,
+        "noImplicitOverride": true,
+        "noImplicitReturns": true,
+        "noUncheckedIndexedAccess": true,
+        "noUnusedLocals": true,</code></pre>
+                        </div>
+                    </dd>
+                </dl>
+            </div>
+        </section>
+        <aside class="purchase">
+            <img src="img/book-front.jpg" alt="Modern TypeScript" />
+        </aside>
+    </main>
+    <main class="quotes">
+        <section>
+            <div class="quote">
+                Lorem ipsum
+            </div>
+            <div class="quote">
+                Lorem ipsum
+            </div>
+            <div class="quote">
+                Lorem ipsum
+            </div>
+            <div class="quote">
+                Lorem ipsum
+            </div>
+            <div class="quote">
+                Lorem ipsum
+            </div>
+            <div class="quote">
+                Lorem ipsum
+            </div>
+        </section>
+    </main>
+    <footer>
+        <section class="author">
+            <img class="author-photo" src="img/ben-beattie-hood.png" />
+            <div class="content">
+                <p>
+                    Ben Beattie-Hood is a principal software engineer and professional mentor with over twenty years of
+                    industry experience. He currently specializes in front end technology, technical strategy, system
+                    design, and development and training in TypeScript, React, and related technologies.
+                </p>
+                <p>
+                    Ben is passionate about evolvable systems, about creating learning organizations, and about how
+                    ideas are formed and communicated. He has given a wide range of workshops and talks covering product
+                    development, event sourcing microservices, event storming practice, modern database internals,
+                    functional programming, front end design and build, as well as specifically coaching in TypeScript
+                    as a velocity tool.
+                </p>
+                <p>
+                    Ben lives with his beautiful wife and two children in Melbourne, Australia, from where he loves to
+                    hike and travel.
+                </p>
+            </div>
+        </section>
+        <section class="publisher">
+            <img class="publisher-logo" src="img/apress-logo.png" alt="Apress" />
+            <div class="content">
+                <p>
+                    Apress, a Springer Nature company, is one of the leading publishers for the IT industry, dedicated
+                    to meeting the information needs of developers, IT professionals, and tech communities worldwide,
+                    with over 3,000 titles covering a range of languages and technologies.
+                </p>
+                <p>
+                    For other books published by Apress, please <a href="https://www.apress.com/gp"
+                        target="_blank">click here</a>.
+                </p>
+            </div>
+        </section>
+    </footer>
+    <script>
+        const d = document;
+        function showToc() {
+            const toc = d.getElementById('toc');
+            toc.classList.add("show");
+            toc.scrollIntoView({ behavior: "smooth", });
+        }
+        [...d.getElementsByClassName('show-hide-button')].forEach(element => {
+            element.addEventListener('click', () => {
+                const target = element.getAttribute('data-target');
+                (target === ':parent' ? element.parentElement : document.getElementById(target)).classList.toggle('show');
+                element.blur();
+            })
+        });
+    </script>
+</body>
+
+</html>
