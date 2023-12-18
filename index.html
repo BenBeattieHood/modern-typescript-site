@@ -4,7 +4,7 @@
     <title>Modern TypeScript</title>
     <!-- <link rel="stylesheet" href="styles.css" /> -->
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Lexend:wght@600&family=Roboto&family=STIX+Two+Text&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Lexend:wght@600&family=Roboto&family=STIX+Two+Text&family=Bitter&display=swap');
 
         :root {
             --step--2: clamp(0.6944rem, 0.6855rem + 0.0446vw, 0.72rem);
@@ -403,12 +403,24 @@
         }
 
         .quotes section {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            grid-template-rows: masonry;
+            display: flex;
+            flex-direction: column;
+            row-gap: var(--gap);
+            font-family: Bitter, Georgia, 'Times New Roman', Times, serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: var(--gap);
         }
 
-        .quote {}
+        .quote .source {
+            text-align: right;
+            font-style: italic;
+            font-size: var(--step--1);
+        }
+
+        .quote .source:before {
+            content: '- '
+        }
 
         footer {
             background-image: url(img/footer-background.jpg);
@@ -1086,22 +1098,26 @@ type Result = IsEqual&lt;1 | 2 | 3, 1&gt;;
     <main class="quotes">
         <section>
             <div class="quote">
-                Lorem ipsum
+                <p>
+                    &#8220;This is a great read for anyone working with TypeScript, covering everything from its origin
+                    and its
+                    basics to seriously advanced usage. I will be recommending it to my team.&#8221;
+                </p>
+                <div class="source">Jack G, Software Team Lead</div>
             </div>
             <div class="quote">
-                Lorem ipsum
+                <p>
+                    &#8220;This book is more than learning how to code: it's not just about TypeScript, but an
+                    approach - a frame of mind used in creating software.&#8221;
+                </p>
+                <div class="source">David B, Senior Software Developer</div>
             </div>
             <div class="quote">
-                Lorem ipsum
-            </div>
-            <div class="quote">
-                Lorem ipsum
-            </div>
-            <div class="quote">
-                Lorem ipsum
-            </div>
-            <div class="quote">
-                Lorem ipsum
+                <p>
+                    &#8220;Practical advice and insider tips from someone deeply embedded in TypeScript make this book a
+                    must-read.&#8221;
+                </p>
+                <div class="source">Jen A, Principal Developer</div>
             </div>
         </section>
     </main>
