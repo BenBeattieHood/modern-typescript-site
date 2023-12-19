@@ -1,8 +1,9 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
     <title>Modern TypeScript</title>
-    <!-- <link rel="stylesheet" href="styles.css" /> -->
+    <meta name="viewport">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Lexend:wght@600&family=Roboto&family=STIX+Two+Text&family=Bitter&display=swap');
 
@@ -476,6 +477,12 @@
             max-width: 300px;
         }
     </style>
+    <meta name="description">
+    Deep-dive into the world of TypeScript, a popular superset of the JavaScript language that enhances the development
+    experience with static typing. This definitive guide covers every aspect of TypeScript in an approachable, concise,
+    and easy-to-understand style, and remains the ultimate resource for mastering TypeScript for all readers from
+    newcomers to experienced developers.
+    </meta>
 </head>
 
 <body>
@@ -651,7 +658,9 @@
                                 commonly called 'duck typing'. Here's the usual obtuse and confusing picture people will
                                 often
                                 point you towards when you ask 'why is it called duck typing?':</p>
-                            <p><img src="img/figure5.webp" /></p>
+                            <p><img src="img/figure5.webp"
+                                    alt="An image that can be interpreted as looking like a duck at the same time as a rabbit" />
+                            </p>
                             <p>Not very helpful, I agree. But the preceding image actually looks like a duck and a
                                 rabbit
                                 (depending on what you're looking for) - so the point here is that it's somewhat both
@@ -663,14 +672,17 @@
                                 or the <b>class</b> of an object is less important than the <b>methods it defines</b>.
                             </p>
                             <p>I find an easier way to visualize it is like this:</p>
-                            <p><img src="img/figure6.webp" /></p>
+                            <p><img src="img/figure6.webp"
+                                    alt="An image of a circular hole permitting a cylinder but not a triangular prism" />
+                            </p>
                             <p>In the preceding image, whatever is round can fit into the hole. It doesn't matter if
                                 it's a
                                 ball
                                 of string, a cylindrical block, or a golf ball - if it fits the 'contract' delineated by
                                 the
                                 round hole, it can successfully fit in the round hole:</p>
-                            <p><img src="img/figure7.webp" /></p>
+                            <p><img src="img/figure7.webp" alt="An image of a circular hole permitting a golf ball" />
+                            </p>
                             <p>So that's the way you can think of structural types: structural types define a minimum
                                 shape
                                 (or
@@ -1124,7 +1136,7 @@ type Result = IsEqual&lt;1 | 2 | 3, 1&gt;;
     </main>
     <footer>
         <section class="author">
-            <img class="author-photo" src="img/ben-beattie-hood.webp" />
+            <img class="author-photo" src="img/ben-beattie-hood.webp" alt="Photo of the author, Ben Beattie-Hood" />
             <div class="content">
                 <p>
                     Ben Beattie-Hood is a principal software engineer and professional mentor with over twenty years of
@@ -1154,7 +1166,7 @@ type Result = IsEqual&lt;1 | 2 | 3, 1&gt;;
                 </p>
                 <p>
                     For other books published by Apress, please <a href="https://www.apress.com/gp"
-                        target="_blank">click here</a>.
+                        alt="Full listing of books by Apress" target="_blank">click here</a>.
                 </p>
             </div>
         </section>
