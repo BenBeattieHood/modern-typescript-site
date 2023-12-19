@@ -94,7 +94,6 @@
         }
 
         .book3d {
-            position: relative;
             border: 0;
             cursor: pointer;
             background: #fefefe;
@@ -102,13 +101,13 @@
             display: block;
             position: relative;
             list-style: none;
-            perspective-origin: 0 50% 0;
             perspective: 800px;
             max-width: clamp(7.5rem, 5.9348rem + 7.8261vw, 12rem);
             box-shadow: rgb(0, 0, 0) 0px 10px var(--gap) 4px;
         }
 
         .book3d img {
+            display: block;
             transform-origin: 0 50% 0;
             transform-style: preserve-3d;
             transition: all .5s cubic-bezier(0.25, 1, .25, 1);
@@ -208,30 +207,46 @@
         .book .purchase a {
             display: flex;
             flex-direction: column;
-            row-gap: 12px;
-            filter: drop-shadow(0 0 10px #fff);
-            transition: all 0.5s;
+            row-gap: 24px;
         }
 
-        .book .purchase a img {
-            transition: all 0.5s;
-        }
-
-        .book .purchase a img:last-of-type {
-            transform: scale(0.95);
-        }
-
-        .book .purchase a:hover {
-            filter: drop-shadow(0 0 20px #FFC425)
-        }
-
-        .book .purchase a:hover img:last-of-type {
-            transform: scale(0.98);
-        }
-
-        .book .purchase img {
+        .book .purchase img:first-of-type {
             max-width: clamp(6.5rem, 6.5rem + 7vw, 11rem);
             border-radius: 3px;
+        }
+
+        .book .purchase span {
+            position: relative;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            background-color: #1d1719;
+            border-radius: 9999px;
+            padding: 12px;
+            box-shadow: #000 0px 3px 24px -4px;
+            transition: all 0.3s;
+        }
+
+        .book .purchase span::after {
+            position: absolute;
+            display: block;
+            content: '';
+            background-image: url(img/button-buy-amazon-arrow.webp);
+            background-repeat: no-repeat;
+            right: 12px;
+            height: 23px;
+            width: 14px;
+            transition: right 0.2s;
+        }
+
+        .book .purchase a:hover span {
+            box-shadow: #000 0px 3px 24px 0px;
+            background-color: #2b2326;
+        }
+
+        .book .purchase a:hover span::after {
+            right: 8px;
         }
 
         @media screen and (max-width: 750px) {
@@ -509,11 +524,8 @@
 <body>
     <header>
         <div>
-            <aside class="preview" id="preview">
-                <button class="book3d" onclick="showToc()">
-                    <img src="img/book-front.webp" alt="Modern TypeScript" />
-                </button>
-            </aside>
+            <aside class="preview" id="preview"><button class="book3d" onclick="showToc()"><img
+                        src="img/book-front.webp" alt="Modern TypeScript" /></button></aside>
             <section class="about">
                 <h1>
                     Modern TypeScript
@@ -1125,10 +1137,12 @@ type Result = IsEqual&lt;1 | 2 | 3, 1&gt;;
             </div>
         </section>
         <aside class="purchase">
-            <a target="_blank"
+            <a data-amazonlink target="_blank"
                 href="https://www.amazon.com/Modern-TypeScript-Practical-Accelerate-Development/dp/1484297229?&_encoding=UTF8&tag=benbeattiehoo-20&linkCode=ur2&linkId=e9674d78b249bc9788d32b4d02b794ae&camp=1789&creative=9325">
                 <img src="img/book-front.webp" alt="Purchase the book Modern TypeScript" />
-                <img src="img/button-buy-amazon.webp" alt="Purchase the book Modern TypeScript" />
+                <span title="Purchase on Amazon">
+                    <img src="img/button-buy-amazon-text.webp" alt="Purchase the book Modern TypeScript" />
+                </span>
             </a>
         </aside>
     </main>
@@ -1211,7 +1225,11 @@ type Result = IsEqual&lt;1 | 2 | 3, 1&gt;;
             })
         });
     </script>
-    <!-- Google tag (gtag.js) -->
+    <script src="getAmazonDomain.js"></script>
+    <script>
+        const aD = getAmazonDomain();
+        aD !== 'com' && [...document.querySelectorAll('a[data-amazonlink]')].forEach(node => { node.href = node.href.replace('.amazon.com/', `.amazon.${aD}/`) })
+    </script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-FT3S0XC297"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
