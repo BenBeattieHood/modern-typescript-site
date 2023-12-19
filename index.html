@@ -202,6 +202,9 @@
         .book .purchase {
             position: sticky;
             top: var(--gap);
+            display: flex;
+            flex-direction: column;
+            row-gap: 24px;
         }
 
         .book .purchase a {
@@ -215,7 +218,8 @@
             border-radius: 3px;
         }
 
-        .book .purchase span {
+        .book .purchase span,
+        .book .purchase button {
             position: relative;
             display: flex;
             flex-direction: row;
@@ -226,6 +230,34 @@
             padding: 12px;
             box-shadow: #000 0px 3px 24px -4px;
             transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .book .purchase button {
+            background-color: #fff;
+            fill: #f4f8f7;
+            border: solid 3px #f4f8f7;
+            box-shadow: none;
+            column-gap: 12px;
+        }
+
+        button[data-toctoggle]::before {
+            content: 'Explore Inside'
+        }
+
+        button.toc-visible[data-toctoggle]::before {
+            content: 'Hide Preview'
+        }
+
+
+        .book .purchase button img {
+            width: 26px;
+        }
+
+        .book .purchase button:hover {
+            background-color: #ecf0ef;
+            border: solid 3px #cfd2d1;
+            box-shadow: #f4f8f7 0px 3px 12px -4px;
         }
 
         .book .purchase span::after {
@@ -524,7 +556,7 @@
 <body>
     <header>
         <div>
-            <aside class="preview" id="preview"><button class="book3d" onclick="showToc()"><img
+            <aside class="preview" id="preview"><button class="book3d" onclick="toggleToc()"><img
                         src="img/book-front.webp" alt="Modern TypeScript" /></button></aside>
             <section class="about">
                 <h1>
@@ -1144,6 +1176,9 @@ type Result = IsEqual&lt;1 | 2 | 3, 1&gt;;
                     <img src="img/button-buy-amazon-text.webp" alt="Purchase the book Modern TypeScript" />
                 </span>
             </a>
+            <button data-toctoggle onclick="toggleToc()">
+                <img src="img/button-read.svg" aria-hidden="true" />
+            </button>
         </aside>
     </main>
     <main class="quotes">
@@ -1212,10 +1247,12 @@ type Result = IsEqual&lt;1 | 2 | 3, 1&gt;;
     </footer>
     <script>
         const d = document;
-        function showToc() {
+        function toggleToc() {
             const toc = d.getElementById('toc');
-            toc.classList.add("show");
-            toc.scrollIntoView({ behavior: "smooth", });
+            toc.classList.toggle("show") ? toc.scrollIntoView({ behavior: "smooth", }) : window.scrollTo({ top: 0, behavior: 'smooth' });
+            [...d.querySelectorAll('button[data-toctoggle]')].forEach(element => {
+                element.classList.toggle('toc-visible')
+            });
         }
         [...d.getElementsByClassName('show-hide-button')].forEach(element => {
             element.addEventListener('click', () => {
