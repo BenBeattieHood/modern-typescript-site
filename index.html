@@ -216,6 +216,7 @@
         .book .purchase img:first-of-type {
             max-width: clamp(6.5rem, 6.5rem + 7vw, 11rem);
             border-radius: 3px;
+            transition: all 0.2s;
         }
 
         .book .purchase span,
@@ -270,6 +271,10 @@
             height: 23px;
             width: 14px;
             transition: right 0.2s;
+        }
+
+        .book .purchase a:hover>img {
+            box-shadow: #666 0px 0px 12px 0px;
         }
 
         .book .purchase a:hover span {
