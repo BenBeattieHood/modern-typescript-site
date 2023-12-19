@@ -540,10 +540,22 @@
             flex-direction: row;
         }
 
-        footer .author img {
+        footer .author>img {
             max-width: 200px;
             outline: solid 3px #ffc51f;
             border-radius: 50%;
+        }
+
+        footer .channels {
+            display: flex;
+            column-gap: 20px;
+            align-items: center;
+            justify-content: end;
+        }
+
+        footer .channels img {
+            height: 1.4em;
+            display: block;
         }
 
         footer .publisher {
@@ -1239,6 +1251,17 @@ type Result = IsEqual&lt;1 | 2 | 3, 1&gt;;
                 <p>
                     Ben lives with his beautiful wife and two children in Melbourne, Australia, from where he loves to
                     hike and travel.
+                </p>
+                <p class="channels">
+                    <a href="https://x.com/BenBeattieHood" target="_blank">
+                        <img src="img/icon-channel-x.svg" alt="Twitter / X" />
+                    </a>
+                    <a href="https://www.linkedin.com/in/ben-beattie-hood/" target="_blank">
+                        <img src="img/icon-channel-linkedin.svg" alt="LinkedIn" />
+                    </a>
+                    <a href="https://youtube.com/BenBeattieHood" target="_blank">
+                        <img src="img/icon-channel-youtube.svg" alt="YouTube" />
+                    </a>
                 </p>
             </div>
         </section>
