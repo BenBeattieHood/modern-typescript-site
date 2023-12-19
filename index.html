@@ -3,7 +3,7 @@
 
 <head>
     <title>Modern TypeScript</title>
-    <meta name="viewport">
+    <meta name="viewport" />
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Lexend:wght@600&family=Roboto&family=STIX+Two+Text&family=Bitter&display=swap');
 
@@ -205,8 +205,33 @@
             top: var(--gap);
         }
 
+        .book .purchase a {
+            display: flex;
+            flex-direction: column;
+            row-gap: 12px;
+            filter: drop-shadow(0 0 10px #fff);
+            transition: all 0.5s;
+        }
+
+        .book .purchase a img {
+            transition: all 0.5s;
+        }
+
+        .book .purchase a img:last-of-type {
+            transform: scale(0.95);
+        }
+
+        .book .purchase a:hover {
+            filter: drop-shadow(0 0 20px #FFC425)
+        }
+
+        .book .purchase a:hover img:last-of-type {
+            transform: scale(0.98);
+        }
+
         .book .purchase img {
             max-width: clamp(6.5rem, 6.5rem + 7vw, 11rem);
+            border-radius: 3px;
         }
 
         @media screen and (max-width: 750px) {
@@ -477,12 +502,8 @@
             max-width: 300px;
         }
     </style>
-    <meta name="description">
-    Deep-dive into the world of TypeScript, a popular superset of the JavaScript language that enhances the development
-    experience with static typing. This definitive guide covers every aspect of TypeScript in an approachable, concise,
-    and easy-to-understand style, and remains the ultimate resource for mastering TypeScript for all readers from
-    newcomers to experienced developers.
-    </meta>
+    <meta name="description"
+        content="Deep-dive into the world of TypeScript, a popular superset of the JavaScript language that enhances the development experience with static typing. This definitive guide covers every aspect of TypeScript in an approachable, concise, and easy-to-understand style, and remains the ultimate resource for mastering TypeScript for all readers from newcomers to experienced developers." />
 </head>
 
 <body>
@@ -1104,7 +1125,11 @@ type Result = IsEqual&lt;1 | 2 | 3, 1&gt;;
             </div>
         </section>
         <aside class="purchase">
-            <img src="img/book-front.webp" alt="Modern TypeScript" />
+            <a target="_blank"
+                href="https://www.amazon.com/Modern-TypeScript-Practical-Accelerate-Development/dp/1484297229?&_encoding=UTF8&tag=benbeattiehoo-20&linkCode=ur2&linkId=e9674d78b249bc9788d32b4d02b794ae&camp=1789&creative=9325">
+                <img src="img/book-front.webp" alt="Purchase the book Modern TypeScript" />
+                <img src="img/button-buy-amazon.webp" alt="Purchase the book Modern TypeScript" />
+            </a>
         </aside>
     </main>
     <main class="quotes">
