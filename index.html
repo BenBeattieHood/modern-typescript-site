@@ -63,6 +63,9 @@
         header {
             background-color: rgb(49, 47, 50);
             background: linear-gradient(120deg, rgba(49, 47, 50, 1) 0%, rgba(0, 0, 0, 1) 100%);
+        }
+
+        header>div {
             background-image: url(img/header-background.webp);
             background-size: cover;
             background-position: 50% 50%;
@@ -72,9 +75,8 @@
         }
 
         @media screen and (max-width: 848px) {
-            header {
+            header>div {
                 background-image: unset;
-                background: linear-gradient(120deg, rgba(49, 47, 50, 1) 0%, rgba(0, 0, 0, 1) 100%);
             }
         }
 
@@ -83,7 +85,7 @@
             color: ffc424;
         }
 
-        header>div {
+        header>div>div {
             max-width: 900px;
             display: flex;
             flex-direction: row;
@@ -573,19 +575,21 @@
 <body>
     <header>
         <div>
-            <aside class="preview" id="preview"><button class="book3d" onclick="toggleToc()"><img
-                        src="img/book-front.webp" alt="Modern TypeScript" /></button></aside>
-            <section class="about">
-                <h1>
-                    Modern TypeScript
-                </h1>
-                <h2>
-                    A Practical Guide to Accelerate Your Development Velocity
-                </h2>
-                <h3 class="author">
-                    Ben Beattie-Hood
-                </h3>
-            </section>
+            <div>
+                <aside class="preview" id="preview"><button class="book3d" onclick="toggleToc()"><img
+                            src="img/book-front.webp" alt="Modern TypeScript" /></button></aside>
+                <section class="about">
+                    <h1>
+                        Modern TypeScript
+                    </h1>
+                    <h2>
+                        A Practical Guide to Accelerate Your Development Velocity
+                    </h2>
+                    <h3 class="author">
+                        Ben Beattie-Hood
+                    </h3>
+                </section>
+            </div>
         </div>
     </header>
     <main class="book">
